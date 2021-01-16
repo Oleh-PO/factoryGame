@@ -14,6 +14,10 @@ var moneySpend = 50;
 var lineTons = 100;
 var factoryPes = 5;
 var caveSpeed = 70;
+var energi = {};
+var energiConekt = {};
+var energiLine = false;
+var controlingEnergi;
 var  drawPover = function (name, x, y) {
 	if (element === "energi") {
 		facHTML ='<img src = "Energi.png">';
@@ -270,8 +274,9 @@ setInterval(function () { //conveir code
 				if (word[String(yRender + 1) + String(xRender)] === 'line3') {
 					bilding[String(yRender + 1) + String(xRender)] = lineTons;
 				};
+
 			console.log(bilding);
-			}
+			} 
 			else if (bilding[String(yRender) + String(xRender)] > 0) {
 				if (word[String(yRender) + String(xRender)] === "line") {
 					if (word[String(yRender) + String(xRender - 1)] === "line" || word[String(yRender) + String(xRender - 1)] === "line1" ||  word[String(yRender) + String(xRender - 1)] === "line3" || word[String(yRender) + String(xRender - 1)] === "factory") {
@@ -325,6 +330,14 @@ $("#canvas").click(function(event){ //Click finder
 	console.log(clickY);
 	if (clickY > 0) {
 		word[String(clickY) + String(clickX)] = element;
+		if (word[String(clickY) + String(clickX)] === "energi" && energiLine === false) {
+			energiLine = true;
+			controlingEnergi = String(clickY) + String(clickX);
+		}
+		else if (word[String(clickY) + String(clickX)] === "energi" && energiLine === true) {
+			energiLine = false;
+			energiConekt[String(clickY) + String(clickX)] = controlingEnergi;
+		}
 	}
 	else {
 		word[clickX] = element;
